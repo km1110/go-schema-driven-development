@@ -1,0 +1,11 @@
+services:
+  oapi-codegen:
+    build: .
+    container_name: oapi-codegen
+    volumes:
+      - ../generated:/generated
+      - .:/tools
+      - ../../oapi_gen:/oapi_gen
+
+    # # コンテナ起動時の作業ディレクトリ
+    # working_dir: /openapi
