@@ -1,25 +1,8 @@
 # go-schema-driven-development
 
-## 環境構築手順
-
-### Goのインストール
-
-#### インストール
+### Makefile
 ```
-brew install go
+make openapi-validate
+make openapi-bundle
+make oapigen
 ```
-
-#### インストールの確認
-```
-go version
-```
-
-### Javaのインストール（openapi-generator-cliを使うため）
-
-#### JDKのインストール
-```
-brew install openjdk
-```
-
-## openapi-generator-cliについて
-- OpenAPIからAPIクライアントやモデル/DTOクラスなどを自動生成するツール
