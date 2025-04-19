@@ -1,0 +1,5 @@
+UserModel:
+  $ref: './user.yaml'
+
+ErrorModel:
+  $ref: './error.yaml'

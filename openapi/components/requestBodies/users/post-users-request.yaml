@@ -1,0 +1,9 @@
+description: ユーザー新規作成
+required: true
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        user:
+          $ref: '../../schemas/user.yaml'

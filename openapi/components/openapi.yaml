@@ -1,0 +1,59 @@
+openapi: 3.0.3
+
+info:
+  title: "My API Spec"
+  description: |-
+    My Sampe API Specification.</br>
+    It works for me.
+  termsOfService: https://www.blog.danishi.net/about/
+  version: "1.0.0"
+  contact:
+    name: API Support
+    email: support@example.com
+    url: http://example.com/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: https://api.example.com/api/v1
+    description: production
+  - url: https://{environment}.api.example.com/api/v1
+    variables:
+      environment:
+        default: dev
+        enum:
+          - dev
+          - staging
+    description: develop
+  - url: "{protocol}://{host}:{port}/api/v1"
+    description: local
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+      port:
+        enum:
+          - '443'
+          - '8443'
+        default: '443'
+
+tags:
+  - name: Users
+    description: Access to user model.
+
+paths:
+  /users:
+    $ref: './paths/users/users.yaml'
+
+components:
+  schemas:
+    $ref: './schemas/index.yaml'
+  requestBodies:
+    $ref: './requestBodies/index.yaml'
+  responses:
+    $ref: './responses/index.yaml'

@@ -1,0 +1,11 @@
+description: Forbidden.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: '../../schemas/error.yaml'
+      properties:
+        code:
+          example: 403
+        message:
+          example: Forbidden.

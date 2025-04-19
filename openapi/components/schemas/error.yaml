@@ -1,0 +1,14 @@
+description: Response Error Model.
+required:
+  - code
+  - message
+type: object
+properties:
+  code:
+    title: error code
+    type: string
+    example: 500
+  message:
+    title: error message
+    type: string
+    example: Internal Server Error.

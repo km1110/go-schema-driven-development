@@ -1,0 +1,28 @@
+get:
+  operationId: getUsers
+  summary: ユーザー一覧取得
+  tags:
+    - User
+  parameters:
+    - name: page
+      in: query
+      schema:
+        type: integer
+        default: 1
+  responses:
+    '200':
+      $ref: '../../responses/users/get-users-response.yaml'
+    '404':
+      $ref: '../../responses/error/not-found.yaml'
+post:
+  operationId: postUsers
+  summary: ユーザー新規作成
+  tags:
+    - User
+  requestBody:
+    $ref: '../../requestBodies/users/post-users-request.yaml'
+  responses:
+    '201':
+      $ref: '../../responses/users/post-users-response.yaml'
+    '404':
+      $ref: '../../responses/error/not-found.yaml'

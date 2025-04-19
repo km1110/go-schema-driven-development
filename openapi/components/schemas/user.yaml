@@ -1,0 +1,40 @@
+description: User model
+required:
+  - id
+  - name
+  - email
+type: object
+properties:
+  id:
+    title: User id
+    type: string
+    example: 2c6e239a-f02b-d158-2833-c7f883bb5530
+    readOnly: true
+  name:
+    title: User name
+    type: string
+    example: Leanne Graham
+  email:
+    title: Mail address
+    type: string
+    example: Sincere@april.biz
+  address:
+    title: User address
+    type: object
+    properties:
+      street:
+        title: User address of street
+        type: string
+        example: Kulas Light
+      suite:
+        title: User address of suite
+        type: string
+        example: Apt. 556
+      city:
+        title: User address of city
+        type: string
+        example: Gwenborough
+      zipcode:
+        title: User address of zipcode
+        type: string
+        example: 92998-3874

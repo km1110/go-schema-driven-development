@@ -1,0 +1,2 @@
+PostUserRequestBody:
+  $ref: './users/post-users-request.yaml'

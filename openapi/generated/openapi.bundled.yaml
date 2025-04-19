@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: My API Spec
+  description: |-
+    My Sampe API Specification.</br>
+    It works for me.
+  termsOfService: 'https://www.blog.danishi.net/about/'
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+    url: 'http://example.com/support'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: 'https://api.example.com/api/v1'
+    description: production
+  - url: 'https://{environment}.api.example.com/api/v1'
+    variables:
+      environment:
+        default: dev
+        enum:
+          - dev
+          - staging
+    description: develop
+  - url: '{protocol}://{host}:{port}/api/v1'
+    description: local
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+      port:
+        enum:
+          - '443'
+          - '8443'
+        default: '443'
+tags:
+  - name: Users
+    description: Access to user model.
+paths:
+  /users:
+    get:
+      operationId: getUsers
+      summary: ユーザー一覧取得
+      tags:
+        - User
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          $ref: '#/components/responses/GetUsersResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+    post:
+      operationId: postUsers
+      summary: ユーザー新規作成
+      tags:
+        - User
+      requestBody:
+        $ref: '#/components/requestBodies/PostUserRequestBody'
+      responses:
+        '201':
+          $ref: '#/components/responses/PostUsersResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+components:
+  schemas:
+    UserModel:
+      description: User model
+      required:
+        - id
+        - name
+        - email
+      type: object
+      properties:
+        id:
+          title: User id
+          type: string
+          example: 2c6e239a-f02b-d158-2833-c7f883bb5530
+          readOnly: true
+        name:
+          title: User name
+          type: string
+          example: Leanne Graham
+        email:
+          title: Mail address
+          type: string
+          example: Sincere@april.biz
+        address:
+          title: User address
+          type: object
+          properties:
+            street:
+              title: User address of street
+              type: string
+              example: Kulas Light
+            suite:
+              title: User address of suite
+              type: string
+              example: Apt. 556
+            city:
+              title: User address of city
+              type: string
+              example: Gwenborough
+            zipcode:
+              title: User address of zipcode
+              type: string
+              example: 92998-3874
+    ErrorModel:
+      description: Response Error Model.
+      required:
+        - code
+        - message
+      type: object
+      properties:
+        code:
+          title: error code
+          type: string
+          example: 500
+        message:
+          title: error message
+          type: string
+          example: Internal Server Error.
+  requestBodies:
+    PostUserRequestBody:
+      description: ユーザー新規作成
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user:
+                $ref: '#/components/schemas/UserModel'
+  responses:
+    GetUsersResponse:
+      description: 200 OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              users:
+                description: ユーザー一覧
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserModel'
+    PostUsersResponse:
+      description: 201 Created
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              users:
+                $ref: '#/components/schemas/UserModel'
+    BadRequestResponse:
+      description: Bad Request.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 400
+              message:
+                example: Bad Request.
+    NotFoundResponse:
+      description: Not Found.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 404
+              message:
+                example: Not Found.
+    InternalServerErrorResponse:
+      description: Internal Server Error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorModel'
+    UnauthorizedResponse:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 401
+              message:
+                example: Unauthorized.
+    ForbiddenResponse:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/ErrorModel'
+            properties:
+              code:
+                example: 403
+              message:
+                example: Forbidden.

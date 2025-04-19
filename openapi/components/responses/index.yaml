@@ -1,0 +1,16 @@
+GetUsersResponse:
+  $ref: './users/get-users-response.yaml'
+  
+PostUsersResponse:
+  $ref: './users/post-users-response.yaml'
+
+BadRequestResponse:
+  $ref: './error/bad-request.yaml'
+NotFoundResponse:
+  $ref: './error/not-found.yaml'
+InternalServerErrorResponse:
+  $ref: './error/internal-server-error.yaml'
+UnauthorizedResponse:
+  $ref: './error/unauthorized.yaml'
+ForbiddenResponse:
+  $ref: './error/forbidden.yaml'

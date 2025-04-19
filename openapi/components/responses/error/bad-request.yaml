@@ -1,0 +1,11 @@
+description: Bad Request.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: '../../schemas/error.yaml'
+      properties:
+        code:
+          example: 400
+        message:
+          example: Bad Request.

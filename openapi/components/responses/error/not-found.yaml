@@ -1,0 +1,11 @@
+description: Not Found.
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: '../../schemas/error.yaml'
+      properties:
+        code:
+          example: 404
+        message:
+          example: Not Found.
