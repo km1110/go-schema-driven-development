@@ -1,12 +1,8 @@
 # Dockerfile
-FROM golang:1.20-alpine
+FROM golang:1.24-alpine
 
 # コード生成ツールに必要なツールをインストール
 RUN apk --no-cache add git
 
 # oapi-codegen をインストール
-RUN go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
-
-# # ENTRYPOINT をシェルにすることで、
-# # `docker compose run ... oapi-codegen ...` の形でコマンドを指定可能
-# ENTRYPOINT ["/bin/sh", "-c"]
+RUN go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.4.0
