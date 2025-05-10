@@ -1,0 +1,19 @@
+type: object
+description: todo model.
+properties:
+  id:
+    type: integer
+    description: todo id.
+    example: 1
+  title:
+    type: string
+    description: todo title.
+    example: "todo title"
+  completed:
+    type: boolean
+    description: todo completed status.
+    example: false
+  description:
+    type: string
+    description: todo description.
+    example: "todo description"

@@ -1,2 +1,9 @@
+# users
 PostUserRequestBody:
-  $ref: './users/post-users-request.yaml'
+  $ref: './users/CreateUsersRequest.yaml'
+
+# todos
+PostTodoRequestBody:
+  $ref: './todos/CreateTodoRequest.yaml'
+PatchTodoRequestBody:
+  $ref: './todos/UpdateTodoRequest.yaml'

@@ -1,0 +1,7 @@
+name: limit
+in: query
+description: Limit one page.
+schema:
+  type: integer
+  default: 12
+example: 12

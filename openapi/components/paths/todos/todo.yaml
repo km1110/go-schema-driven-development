@@ -1,0 +1,48 @@
+get:
+  operationId: getTodo
+  summary: Todo取得
+  tags:
+    - Todos
+  parameters:
+    - $ref: '../../parameters/path/TodoId.yaml'
+  responses:
+    '200':
+      $ref: '../../responses/todos/TodoResponse.yaml'
+    '404':
+      $ref: '../../responses/error/not-found.yaml'
+    '500':
+      $ref: '../../responses/error/internal-server-error.yaml'
+
+patch:
+  operationId: patchTodo
+  summary: Todo更新
+  tags:
+    - Todos
+  parameters:
+    - $ref: '../../parameters/path/TodoId.yaml'
+  requestBody:
+    $ref: '../../requestBodies/todos/UpdateTodoRequest.yaml'
+  responses:
+    '200':
+      $ref: '../../responses/todos/TodoResponse.yaml'
+    '400':
+      $ref: '../../responses/error/bad-request.yaml'
+    '404':
+      $ref: '../../responses/error/not-found.yaml'
+    '500':
+      $ref: '../../responses/error/internal-server-error.yaml'
+
+delete:
+  operationId: deleteTodo
+  summary: Todo削除
+  tags:
+    - Todos
+  parameters:
+    - $ref: '../../parameters/path/TodoId.yaml'
+  responses:
+    '204':
+      description: Todo削除成功
+    '404':
+      $ref: '../../responses/error/not-found.yaml'
+    '500':
+      $ref: '../../responses/error/internal-server-error.yaml'

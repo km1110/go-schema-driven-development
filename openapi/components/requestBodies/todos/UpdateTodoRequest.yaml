@@ -1,0 +1,11 @@
+description: todoの更新
+required: true
+content:
+  application/json:
+    schema:
+      allOf:
+          - $ref: '../../schemas/todo.yaml'
+          - type: object
+            properties:
+              id:
+                readOnly: true

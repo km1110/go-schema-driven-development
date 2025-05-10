@@ -1,5 +1,5 @@
-UserModel:
-  $ref: './user.yaml'
+TodoModel:
+  $ref: './todo.yaml'
 
 ErrorModel:
   $ref: './error.yaml'

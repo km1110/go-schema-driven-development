@@ -1,0 +1,13 @@
+description: todoの新規作成
+required: true
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: '../../schemas/todo.yaml'
+        - type: object
+          required:
+            - title
+          properties:
+            id:
+              readOnly: true

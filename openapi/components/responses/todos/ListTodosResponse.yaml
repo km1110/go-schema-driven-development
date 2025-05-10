@@ -1,0 +1,22 @@
+description: 200 OK
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        todos:
+          type: array
+          items:
+            $ref: '../../schemas/todo.yaml'
+        total_count:
+          description: アイテムの総数
+          type: integer
+          example: 10
+        limit:
+          description: 取得件数
+          type: integer
+          example: 12
+        offset:
+          description: 取得開始位置
+          type: integer
+          example: 0

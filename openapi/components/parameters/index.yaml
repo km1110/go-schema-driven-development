@@ -1,0 +1,9 @@
+# path
+TodoIdParameter:
+  $ref: './path/TodoId.yaml'
+
+# query
+LimitParameter:
+  $ref: './query/limit.yaml'
+OffsetParameter:
+  $ref: './query/offset.yaml'

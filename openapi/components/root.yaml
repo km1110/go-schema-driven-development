@@ -1,19 +1,8 @@
 openapi: 3.0.3
 
 info:
-  title: "My API Spec"
-  description: |-
-    My Sampe API Specification.</br>
-    It works for me.
-  termsOfService: https://www.blog.danishi.net/about/
+  title: "OpenAPI template"
   version: "1.0.0"
-  contact:
-    name: API Support
-    email: support@example.com
-    url: http://example.com/support
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
   - url: https://api.example.com/api/v1
@@ -38,17 +27,20 @@ servers:
         default: localhost
       port:
         enum:
-          - '443'
-          - '8443'
-        default: '443'
+          - '8080'
+        default: '8080'
 
 tags:
   - name: Users
     description: Access to user model.
+  - name: Todos
+    description: Access to todo model.
 
 paths:
-  /users:
-    $ref: './paths/users/users.yaml'
+  /todos:
+    $ref: './paths/todos/todos.yaml'
+  /todos/{todoId}:
+    $ref: './paths/todos/todo.yaml'
 
 components:
   schemas:
@@ -57,3 +49,5 @@ components:
     $ref: './requestBodies/index.yaml'
   responses:
     $ref: './responses/index.yaml'
+  parameters:
+    $ref: './parameters/index.yaml'

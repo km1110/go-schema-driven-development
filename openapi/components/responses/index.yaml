@@ -1,9 +1,19 @@
-GetUsersResponse:
-  $ref: './users/get-users-response.yaml'
-  
+# users
 PostUsersResponse:
-  $ref: './users/post-users-response.yaml'
+  $ref: './users/UserResponse.yaml'
 
+# todos
+GetTodosResponse:
+  $ref: './todos/ListTodosResponse.yaml'
+GetTodoResponse:
+  $ref: './todos/TodoResponse.yaml'
+PostTodosResponse:
+  $ref: './todos/TodoResponse.yaml'
+PatchTodoResponse:
+  $ref: './todos/TodoResponse.yaml'
+
+
+# error
 BadRequestResponse:
   $ref: './error/bad-request.yaml'
 NotFoundResponse:

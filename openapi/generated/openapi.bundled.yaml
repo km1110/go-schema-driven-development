@@ -1,18 +1,7 @@
 openapi: 3.0.3
 info:
-  title: My API Spec
-  description: |-
-    My Sampe API Specification.</br>
-    It works for me.
-  termsOfService: 'https://www.blog.danishi.net/about/'
+  title: OpenAPI template
   version: 1.0.0
-  contact:
-    name: API Support
-    email: support@example.com
-    url: 'http://example.com/support'
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
   - url: 'https://api.example.com/api/v1'
     description: production
@@ -36,85 +25,115 @@ servers:
         default: localhost
       port:
         enum:
-          - '443'
-          - '8443'
-        default: '443'
+          - '8080'
+        default: '8080'
 tags:
   - name: Users
     description: Access to user model.
+  - name: Todos
+    description: Access to todo model.
 paths:
-  /users:
+  /todos:
     get:
-      operationId: getUsers
-      summary: ユーザー一覧取得
+      operationId: getTodos
+      summary: Todo一覧取得
       tags:
-        - User
+        - Todos
       parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 1
+        - $ref: '#/components/parameters/LimitParameter'
+        - $ref: '#/components/parameters/OffsetParameter'
       responses:
         '200':
-          $ref: '#/components/responses/GetUsersResponse'
+          $ref: '#/components/responses/GetTodosResponse'
         '404':
           $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
     post:
-      operationId: postUsers
-      summary: ユーザー新規作成
+      operationId: postTodos
+      summary: Todo新規作成
       tags:
-        - User
+        - Todos
       requestBody:
-        $ref: '#/components/requestBodies/PostUserRequestBody'
+        $ref: '#/components/requestBodies/PostTodoRequestBody'
       responses:
         '201':
-          $ref: '#/components/responses/PostUsersResponse'
+          $ref: '#/components/responses/GetTodoResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
         '404':
           $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+  '/todos/{todoId}':
+    get:
+      operationId: getTodo
+      summary: Todo取得
+      tags:
+        - Todos
+      parameters:
+        - $ref: '#/components/parameters/TodoIdParameter'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTodoResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+    patch:
+      operationId: patchTodo
+      summary: Todo更新
+      tags:
+        - Todos
+      parameters:
+        - $ref: '#/components/parameters/TodoIdParameter'
+      requestBody:
+        $ref: '#/components/requestBodies/PatchTodoRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/GetTodoResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestResponse'
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
+    delete:
+      operationId: deleteTodo
+      summary: Todo削除
+      tags:
+        - Todos
+      parameters:
+        - $ref: '#/components/parameters/TodoIdParameter'
+      responses:
+        '204':
+          description: Todo削除成功
+        '404':
+          $ref: '#/components/responses/NotFoundResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerErrorResponse'
 components:
   schemas:
-    UserModel:
-      description: User model
-      required:
-        - id
-        - name
-        - email
+    TodoModel:
       type: object
+      description: todo model.
       properties:
         id:
-          title: User id
+          type: integer
+          description: todo id.
+          example: 1
+        title:
           type: string
-          example: 2c6e239a-f02b-d158-2833-c7f883bb5530
-          readOnly: true
-        name:
-          title: User name
+          description: todo title.
+          example: todo title
+        completed:
+          type: boolean
+          description: todo completed status.
+          example: false
+        description:
           type: string
-          example: Leanne Graham
-        email:
-          title: Mail address
-          type: string
-          example: Sincere@april.biz
-        address:
-          title: User address
-          type: object
-          properties:
-            street:
-              title: User address of street
-              type: string
-              example: Kulas Light
-            suite:
-              title: User address of suite
-              type: string
-              example: Apt. 556
-            city:
-              title: User address of city
-              type: string
-              example: Gwenborough
-            zipcode:
-              title: User address of zipcode
-              type: string
-              example: 92998-3874
+          description: todo description.
+          example: todo description
     ErrorModel:
       description: Response Error Model.
       required:
@@ -137,32 +156,100 @@ components:
       content:
         application/json:
           schema:
+            allOf:
+              - $ref: '#/components/responses/PostUsersResponse/content/application~1json/schema'
+              - type: object
+                required:
+                  - password
+                  - email
+                  - name
+                properties:
+                  id:
+                    readOnly: true
+    PostTodoRequestBody:
+      description: todoの新規作成
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/TodoModel'
+              - type: object
+                required:
+                  - title
+                properties:
+                  id:
+                    readOnly: true
+    PatchTodoRequestBody:
+      description: todoの更新
+      required: true
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/TodoModel'
+              - type: object
+                properties:
+                  id:
+                    readOnly: true
+  responses:
+    PostUsersResponse:
+      description: 200 OK
+      content:
+        application/json:
+          schema:
+            description: User model
             type: object
             properties:
-              user:
-                $ref: '#/components/schemas/UserModel'
-  responses:
-    GetUsersResponse:
+              id:
+                title: User id
+                type: string
+                example: 2c6e239a-f02b-d158-2833-c7f883bb5530
+              password:
+                title: User password
+                type: string
+                example: password
+              name:
+                title: User name
+                type: string
+                example: Leanne Graham
+              email:
+                title: Mail address
+                type: string
+                example: Sincere@april.biz
+    GetTodosResponse:
       description: 200 OK
       content:
         application/json:
           schema:
             type: object
             properties:
-              users:
-                description: ユーザー一覧
+              todos:
                 type: array
                 items:
-                  $ref: '#/components/schemas/UserModel'
-    PostUsersResponse:
-      description: 201 Created
+                  $ref: '#/components/schemas/TodoModel'
+              total_count:
+                description: アイテムの総数
+                type: integer
+                example: 10
+              limit:
+                description: 取得件数
+                type: integer
+                example: 12
+              offset:
+                description: 取得開始位置
+                type: integer
+                example: 0
+    GetTodoResponse:
+      description: 200 OK
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              users:
-                $ref: '#/components/schemas/UserModel'
+            $ref: '#/components/schemas/TodoModel'
+    PostTodosResponse:
+      $ref: '#/components/responses/GetTodoResponse'
+    PatchTodoResponse:
+      $ref: '#/components/responses/GetTodoResponse'
     BadRequestResponse:
       description: Bad Request.
       content:
@@ -217,3 +304,30 @@ components:
                 example: 403
               message:
                 example: Forbidden.
+  parameters:
+    TodoIdParameter:
+      name: todoId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+    LimitParameter:
+      name: limit
+      in: query
+      description: Limit one page.
+      schema:
+        type: integer
+        default: 12
+      example: 12
+    OffsetParameter:
+      name: offset
+      in: query
+      description: skip count.
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+      example: 0
