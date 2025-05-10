@@ -1,8 +1,0 @@
-description: 201 Created
-content:
-  application/json:
-    schema:
-      type: object
-      properties:
-        users:
-          $ref: '../../schemas/user.yaml'

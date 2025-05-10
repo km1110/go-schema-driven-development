@@ -1,0 +1,15 @@
+description: ユーザー新規作成
+required: true
+content:
+  application/json:
+    schema:
+      allOf:
+        - $ref: '../../schemas/user.yaml'
+        - type: object
+          required:
+            - password
+            - email
+            - name
+          properties:
+            id:
+              readOnly: true
