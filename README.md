@@ -1,8 +1,3 @@
 # go-schema-driven-development
 
-### Makefile
-```
-make openapi-validate
-make openapi-bundle
-make oapigen
-```
+OpenAPI 3.0仕様に基づいてGoコードを自動生成するツールである``oapi-codegen``を使ったスキーマ駆動開発
