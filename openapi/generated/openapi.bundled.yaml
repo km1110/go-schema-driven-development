@@ -29,9 +29,7 @@ servers:
         default: '8080'
 tags:
   - name: Users
-    description: Access to user model.
   - name: Todos
-    description: Access to todo model.
 paths:
   /todos:
     get:

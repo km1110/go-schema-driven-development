@@ -1,6 +1,0 @@
-package: oapi # 任意の名前でOK
-output: /oapi_gen/model.gen.go # generatedディレクトリが存在しないと失敗する
-generate:
-  models: true
-output-options:
-  skip-prune: true

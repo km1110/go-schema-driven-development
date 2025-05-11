@@ -1,17 +1,19 @@
+ROOT_YAML=openapi/root.yaml
+BUNDLE_YAML=openapi/generated/openapi.bundled.yaml
+
 .PHONY: openapi-validate
 openapi-validate:
-	cd openapi/tools && \
-		docker compose run --rm swagger-cli validate /components/root.yaml
+	cd docker && \
+		docker compose run --rm swagger-cli validate /workspace/$(ROOT_YAML)
 
 
 .PHONY: openapi-bundle
 openapi-bundle:
-	cd openapi/tools && \
-		docker compose run --rm swagger-cli bundle -t yaml -o /generated/openapi.bundled.yaml /components/root.yaml
+	cd docker && \
+		docker compose run --rm swagger-cli bundle -t yaml -o /workspace/$(BUNDLE_YAML) /workspace/$(ROOT_YAML)
+
 
 .PHONY: oapigen
-oapigen:
-	cd openapi/tools && \
-		docker compose run --rm oapi-codegen oapi-codegen -config /tools/config.yaml /generated/openapi.bundled.yaml
-
-
+oapigen: 
+	cd docker && \
+		docker compose run --rm oapi-codegen -config /workspace/docker/config.yaml /workspace/$(BUNDLE_YAML)
