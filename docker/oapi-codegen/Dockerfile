@@ -6,3 +6,5 @@ RUN apk --no-cache add git
 
 # oapi-codegen をインストール
 RUN go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.4.0
+
+ENTRYPOINT ["oapi-codegen"]

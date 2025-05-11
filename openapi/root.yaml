@@ -32,9 +32,7 @@ servers:
 
 tags:
   - name: Users
-    description: Access to user model.
   - name: Todos
-    description: Access to todo model.
 
 paths:
   /todos:
@@ -44,10 +42,10 @@ paths:
 
 components:
   schemas:
-    $ref: './schemas/index.yaml'
+    $ref: './components/schemas/index.yaml'
   requestBodies:
-    $ref: './requestBodies/index.yaml'
+    $ref: './components/requestBodies/index.yaml'
   responses:
-    $ref: './responses/index.yaml'
+    $ref: './components/responses/index.yaml'
   parameters:
-    $ref: './parameters/index.yaml'
+    $ref: './components/parameters/index.yaml'

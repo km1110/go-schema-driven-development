@@ -1,0 +1,32 @@
+get:
+  operationId: getTodos
+  summary: Todo一覧取得
+  tags:
+    - Todos
+  parameters:
+    - $ref: '../../components/parameters/query/limit.yaml'
+    - $ref: '../../components/parameters/query/offset.yaml'
+  responses:
+    '200':
+      $ref: '../../components/responses/todos/ListTodosResponse.yaml'
+    '404':
+      $ref: '../../components/responses/error/not-found.yaml'
+    '500':
+      $ref: '../../components/responses/error/internal-server-error.yaml'
+
+post:
+  operationId: postTodos
+  summary: Todo新規作成
+  tags:
+    - Todos
+  requestBody:
+    $ref: '../../components/requestBodies/todos/CreateTodoRequest.yaml'
+  responses:
+    '201':
+      $ref: '../../components/responses/todos/TodoResponse.yaml'
+    '400':
+      $ref: '../../components/responses/error/bad-request.yaml'
+    '404':
+      $ref: '../../components/responses/error/not-found.yaml'
+    '500':
+      $ref: '../../components/responses/error/internal-server-error.yaml'

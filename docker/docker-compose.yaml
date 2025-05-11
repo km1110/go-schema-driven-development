@@ -1,0 +1,30 @@
+services:
+  oapi-codegen:
+    build: 
+      context: ./oapi-codegen
+      dockerfile: Dockerfile
+    container_name: oapi-codegen
+    volumes:
+      - ../openapi/generated:/workspace/openapi/generated
+      - .:/workspace/docker
+      - ../oapi_gen:/workspace/oapi_gen
+  
+  swagger-cli:
+    build:
+      context: ./swagger-cli
+    container_name: swagger-cli
+    volumes:
+      - ../openapi:/workspace/openapi
+      - ../openapi/generated:/workspace/openapi/generated
+      - .:/workspace/docker
+  
+  # redocly-cli:
+  #   build:
+  #     context: ./redocly
+  #   container_name: redocly-cli
+  #   volumes:
+  #     - ../components:/components
+  #     - ../generated:/generated
+  #     - .:/tools
+  #   environment:
+  #     - REDOCLY_TELEMETRY=off
